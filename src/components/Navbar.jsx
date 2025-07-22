@@ -1,22 +1,26 @@
-import { useNavigate } from "react-router";
 import styles from "../styles/Navbar.module.css";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../features/authSlice";
 
 const Navbar = () => {
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  const user = true;
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     navigate("/login");
+    dispatch(clearUser())
   };
-  return(
+  return (
     <div className={styles.navbarWrapper}>
       <div>
-        <h1>OAL NEWS</h1>
-        <p> {user} </p>
+        <h1 onClick={() => navigate("/")}>OAL NEWS</h1>
+        <p> {user?.email} </p>
       </div>
       <div className={styles.buttonWrapper}>
-        {user && <button onClick={handleLogout}>Logout</button>}
-        {!user && <button onClick={() => navigate("/login")}>Login</button>}
+        {user?.email && <button onClick={handleLogout}>Logout</button>}
+        {!user?.email && <button onClick={() => navigate("/login")}>Login</button>}
       </div>
     </div>
   )
