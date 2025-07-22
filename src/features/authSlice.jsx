@@ -8,7 +8,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setUser: (state, {payload}) => {
+        setUser: (state, { payload }) => {
             state.user = payload;
         },
         clearUser:(state) => {
